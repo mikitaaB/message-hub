@@ -1,0 +1,9 @@
+.submitSection {
+    display: flex;
+    gap: 15px;
+}
+
+.submitButton {
+    min-width: 120px;
+    flex: 1;
+}

@@ -1,0 +1,21 @@
+.layout {
+    min-height: 100vh;
+    background: #fff;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    background-color: #f4f4f4;
+    padding: 0 20px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.title {
+    margin: 0;
+}
+
+.content {
+    padding: 0;
+    background: #fff;
+}
