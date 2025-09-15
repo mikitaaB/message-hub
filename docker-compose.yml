@@ -31,7 +31,7 @@ services:
       - app-network
 
   db:
-    image: postgres:16-alpine
+    image: postgres:17-alpine
     restart: always
     user: postgres
     environment:
@@ -42,7 +42,7 @@ services:
     ports:
       - "5432:5432"
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - pg_data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD", "pg_isready"]
       interval: 10s
@@ -52,7 +52,7 @@ services:
       - app-network
 
 volumes:
-  postgres_data:
+  pg_data:
 
 networks:
   app-network:
