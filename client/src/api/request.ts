@@ -30,10 +30,12 @@ export const request = async <T = unknown>(options: RequestOptions): Promise<Api
         const response = await fetch(`${API_BASE_URL}${url}`, config);
 
         if (!response.ok) {
-            throw new Error(`HTTP error: ${response.status}`);
+            const errorText = await response.text();
+            throw new Error(`HTTP error ${response.status}: ${errorText || response.statusText}`);
         }
 
-        const responseData = await response.json();
+        const text = await response.text();
+        const responseData = text ? JSON.parse(text) : {};
 
         return {
             data: responseData

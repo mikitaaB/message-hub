@@ -1,8 +1,9 @@
 import { Controller, type Control, type FieldError, type FieldPath, type FieldValues } from 'react-hook-form';
-import { Input } from 'antd';
+import { Input, Typography } from 'antd';
 import styles from './FormField.module.css';
 
 const { TextArea } = Input;
+const { Text } = Typography;
 
 interface BaseFormFieldProps<T extends FieldValues> {
     name: FieldPath<T>;
@@ -12,6 +13,7 @@ interface BaseFormFieldProps<T extends FieldValues> {
     disabled?: boolean;
     error?: FieldError;
     ariaLabel?: string;
+    label?: string;
 }
 
 interface InputFormFieldProps<T extends FieldValues> extends BaseFormFieldProps<T> {
@@ -33,6 +35,7 @@ const FormField = <T extends FieldValues>({
     disabled,
     error,
     ariaLabel,
+    label,
     type,
     ...props
 }: FormFieldProps<T>) => {
@@ -40,6 +43,9 @@ const FormField = <T extends FieldValues>({
 
     return (
         <div className={styles.field}>
+            {label && (
+                <Text strong>{label}</Text>
+            )}
             <Controller
                 name={name}
                 control={control}

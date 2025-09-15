@@ -24,7 +24,7 @@ interface ContactFormProps {
 const ContactForm = ({
     onSubmit,
     onCancel,
-    title = 'Send Message',
+    title = '',
     className
 }: ContactFormProps) => {
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -56,9 +56,13 @@ const ContactForm = ({
             await onSubmit(data);
             toast.success('Message sent successfully!');
             reset();
-        } catch (error) {
+        } catch (error: unknown) {
             console.error('Form submission error:', error);
-            toast.error('An error occurred. Please try again.');
+            if (error instanceof Error) {
+                toast.error(error.message || 'An error occurred. Please try again.');
+            } else {
+                toast.error('An error occurred. Please try again.');
+            }
         } finally {
             setIsSubmitting(false);
         }
@@ -80,6 +84,7 @@ const ContactForm = ({
                             message: 'Name must contain at least 2 characters'
                         }
                     }}
+                    label="Name"
                     placeholder="Enter your name"
                     disabled={isSubmitting}
                     error={errors.name}
@@ -94,6 +99,7 @@ const ContactForm = ({
                         required: 'Please enter your phone number',
                         validate: validatePhone
                     }}
+                    label="Phone"
                     placeholder="+375291234567 or 80291234567"
                     disabled={isSubmitting}
                     error={errors.phone}
@@ -111,8 +117,9 @@ const ContactForm = ({
                             message: 'Message must contain at least 2 characters'
                         }
                     }}
+                    label="Message"
                     placeholder="Enter your message"
-                    rows={6}
+                    rows={4}
                     disabled={isSubmitting}
                     error={errors.message}
                     ariaLabel="Message"
